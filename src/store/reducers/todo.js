@@ -1,20 +1,15 @@
-import { ADD_TODO, TOGGLE_TODO } from "../actions/types/todo";
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from "../actions/types/todo";
 
-//1.
 const initialState = {
   allIds: [],
   byIds: {},
 };
 
-//2.
-export default function todoReducer(state = initialState, action) {
+const todoReducer = (state = initialState, action) => {
   switch (action.type) {
-    //3.
     case ADD_TODO: {
-      //4.
       const { id, content } = action.payload;
 
-      //5.
       return {
         ...state,
 
@@ -48,7 +43,20 @@ export default function todoReducer(state = initialState, action) {
         },
       };
     }
+
+    case DELETE_TODO: {
+      const { id } = action.payload;
+      const targetTodo = state.byIds[id];
+
+      return {
+        targetTodo: [
+          ...state.targetTodo.slice(0, id),
+          ...state.targetTodo.slice(id + 1),
+        ],
+      };
+    }
     default:
       return state;
   }
-}
+};
+export default todoReducer;

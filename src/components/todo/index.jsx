@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import cx from "classnames";
 
-import { toggleTodo } from "../../store/actions/creators/todo";
+import { toggleTodo, deleteTodo } from "../../store/actions/creators/todo";
 
 import styles from "./index.module.css";
 
@@ -11,6 +11,10 @@ export const Todo = ({ todo }) => {
 
   const toggleTodoItem = () => {
     dispatch(toggleTodo(todo.id));
+  };
+
+  const deleteTodoItem = () => {
+    dispatch(deleteTodo(todo.id));
   };
 
   return (
@@ -22,6 +26,10 @@ export const Todo = ({ todo }) => {
         })}
       >
         {todo.content}
+      </span>
+      <span className={styles.delete-item} onClick={deleteTodoItem}>
+        {" "}
+        {"❎"}
       </span>
     </li>
   );

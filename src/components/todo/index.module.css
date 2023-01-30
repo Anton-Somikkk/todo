@@ -3,6 +3,12 @@
   cursor: pointer;
   line-height: 1.5;
 }
+.delete-item {
+  font-family: monospace;
+  cursor: pointer;
+  line-height: 1.5;
+  color: red;
+}
 
 .completed {
   text-decoration: line-through;
