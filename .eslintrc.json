@@ -19,6 +19,7 @@
   },
   "plugins": ["react"],
   "rules": {
+    "jsx-ally/click-events-have-key-events": "off",
     "default-param-last": "off",
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [

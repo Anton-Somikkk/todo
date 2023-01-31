@@ -4,7 +4,7 @@ import { Todo } from "../todo";
 
 import styles from "./index.module.css";
 
-export const TodoList = () => {
+export function TodoList() {
   const todos = useSelector(todosSelector);
 
   return (
@@ -14,4 +14,4 @@ export const TodoList = () => {
       ))}
     </ul>
   );
-};
+}

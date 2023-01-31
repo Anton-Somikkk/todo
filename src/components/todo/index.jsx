@@ -1,25 +1,26 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import cx from "classnames";
+// eslint-disable-next-line no-unused-vars
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import cx from 'classnames'
 
-import { toggleTodo, deleteTodo } from "../../store/actions/creators/todo";
+import { toggleTodo, deleteTodo } from '../../store/actions/creators/todo'
 
-import styles from "./index.module.css";
+import styles from './index.module.css'
 
-export const Todo = ({ todo }) => {
-  const dispatch = useDispatch();
+export function Todo({ todo }) {
+  const dispatch = useDispatch()
 
   const toggleTodoItem = () => {
-    dispatch(toggleTodo(todo.id));
-  };
+    dispatch(toggleTodo(todo.id))
+  }
 
   const deleteTodoItem = () => {
-    dispatch(deleteTodo(todo.id));
-  };
+    dispatch(deleteTodo(todo.id))
+  }
 
   return (
-    <li className={styles.item} onClick={toggleTodoItem}>
-      {todo.completed ? "👌" : "👋"}{" "}
+    <li onClick={toggleTodoItem} className={styles.item} role="presentation">
+      {todo.completed ? '👌' : '👋'}{' '}
       <span
         className={cx({
           [styles.completed]: todo.completed,
@@ -27,10 +28,14 @@ export const Todo = ({ todo }) => {
       >
         {todo.content}
       </span>
-      <span className={styles.delete-item} onClick={deleteTodoItem}>
-        {" "}
-        {"❎"}
+      <span
+        className={styles.deleteItem}
+        onClick={deleteTodoItem}
+        role="presentation"
+      >
+        {' '}
+        ❎
       </span>
     </li>
-  );
-};
+  )
+}
