@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+// eslint-disable-next-line import/no-unresolved
 import { Provider } from "react-redux";
 
 import App from "./App";
