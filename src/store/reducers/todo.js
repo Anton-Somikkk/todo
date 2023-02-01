@@ -1,14 +1,14 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from "../actions/types/todo";
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../actions/types/todo'
 
 const initialState = {
   allIds: [],
   byIds: {},
-};
+}
 
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO: {
-      const { id, content } = action.payload;
+      const { id, content } = action.payload
 
       return {
         ...state,
@@ -23,13 +23,13 @@ const todoReducer = (state = initialState, action) => {
             complete: false,
           },
         },
-      };
+      }
     }
 
     case TOGGLE_TODO: {
-      const { id } = action.payload;
+      const { id } = action.payload
 
-      const targetTodo = state.byIds[id];
+      const targetTodo = state.byIds[id]
 
       return {
         ...state,
@@ -41,29 +41,28 @@ const todoReducer = (state = initialState, action) => {
             completed: !targetTodo.completed,
           },
         },
-      };
+      }
     }
 
     case DELETE_TODO: {
-      const { id, content } = action.payload;
-
+      const { id, content } = action.payload
+      const targetTodo = state.byIds[id]
+     console.log(targetTodo)
       return {
-        ...state,
-
-        allIds: [...state.allIds, id],
+        allIds: [...state.allIds.slice(0, id), ...state.allIds.slice(id + 1)],
 
         byIds: {
           ...state.byIds,
 
           [id]: {
             content,
-            complete: false,
+            
           },
         },
-      };
+      }
     }
     default:
-      return state;
+      return state
   }
-};
-export default todoReducer;
+}
+export default todoReducer
