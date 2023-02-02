@@ -46,17 +46,21 @@ const todoReducer = (state = initialState, action) => {
 
     case DELETE_TODO: {
       const { id, content } = action.payload
-      const targetTodo = state.byIds[id]
-     console.log(targetTodo)
+      // const targetTodo = state.byIds[id]
+      const index = state.allIds.indexOf(id)
+      // const allIds = [
+      //   ...state.allIds.slice(0, index),
+      //   ...state.allIds.slice(index),
+      // ]
+      
       return {
-        allIds: [...state.allIds.slice(0, id), ...state.allIds.slice(id + 1)],
+        allIds: [...state.allIds.slice(0, index), ...state.allIds.slice(index + 1)],
 
         byIds: {
           ...state.byIds,
 
           [id]: {
             content,
-            
           },
         },
       }

@@ -19,9 +19,9 @@ export function Todo({ todo }) {
   }
 
   return (
-    <li onClick={toggleTodoItem} className={styles.item} role="presentation">
+    <li  className={styles.item} >
       {todo.completed ? '👌' : '👋'}{' '}
-      <span
+      <span onClick={toggleTodoItem} role="presentation"
         className={cx({
           [styles.completed]: todo.completed,
         })}
