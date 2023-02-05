@@ -1,4 +1,4 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from '../actions/types/todo'
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, FILTER_TODO } from '../actions/types/todo'
 
 const initialState = {
   allIds: [],
@@ -45,26 +45,41 @@ const todoReducer = (state = initialState, action) => {
     }
 
     case DELETE_TODO: {
-      const { id, content } = action.payload
-      // const targetTodo = state.byIds[id]
+      const { id } = action.payload
       const index = state.allIds.indexOf(id)
-      // const allIds = [
-      //   ...state.allIds.slice(0, index),
-      //   ...state.allIds.slice(index),
-      // ]
-      
+
       return {
-        allIds: [...state.allIds.slice(0, index), ...state.allIds.slice(index + 1)],
+        allIds: [
+          ...state.allIds.slice(0, index),
+          ...state.allIds.slice(index + 1),
+        ],
+
+        byIds: {
+          ...Object.fromEntries(Object.entries(state.byIds).slice(0, index)),
+          ...Object.fromEntries(Object.entries(state.byIds).slice(index + 1)),
+        },
+      }
+    }
+
+    case FILTER_TODO: {
+      const { id, content } = action.payload
+
+      return {
+        ...state,
+
+        allIds: [...state.allIds, id],
 
         byIds: {
           ...state.byIds,
 
           [id]: {
             content,
+            complete: false,
           },
         },
       }
     }
+
     default:
       return state
   }
