@@ -20,8 +20,8 @@ export function AddTodo() {
   }
 
   const handleFilterTodo = (evt) => {
-    setValue(evt.target.value)
-    dispatch(filterTodo(value))
+    
+    dispatch(filterTodo(evt.target.value))
     
   }
 
@@ -38,7 +38,7 @@ export function AddTodo() {
       <select onChange={handleFilterTodo}>
         <option value=''>Выберите</option>
         <option value='completed'>Выполненные</option>
-        <option value='not_completed'>Не выполненные</option>
+        <option value='uncompleted'>Не выполненные</option>
       </select>
     </div>
   )

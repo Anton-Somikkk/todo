@@ -21,7 +21,11 @@ export const deleteTodo = (id) => ({
   payload: { id },
 })
 
-export const filterTodo = (id) => ({
+export const filterTodo = (content) => ({
   type: FILTER_TODO,
-  payload: { id },
+  payload: {
+    /* eslint-disable-next-line no-plusplus */
+    id: ++nextTodoId,
+    content,
+  },
 })
