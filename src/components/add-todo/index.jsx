@@ -19,9 +19,10 @@ export function AddTodo() {
     setValue('')
   }
 
-  const handleFilterTodo = () => {
+  const handleFilterTodo = (evt) => {
+    setValue(evt.target.value)
     dispatch(filterTodo(value))
-    setValue('')
+    
   }
 
   return (
