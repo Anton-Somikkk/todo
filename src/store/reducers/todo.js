@@ -1,4 +1,9 @@
-import { ADD_TODO, TOGGLE_TODO, DELETE_TODO, FILTER_TODO } from '../actions/types/todo'
+import {
+  ADD_TODO,
+  TOGGLE_TODO,
+  DELETE_TODO,
+  FILTER_TODO,
+} from '../actions/types/todo'
 
 const initialState = {
   allIds: [],
@@ -62,21 +67,17 @@ const todoReducer = (state = initialState, action) => {
     }
 
     case FILTER_TODO: {
-      const { id, content } = action.payload
+      const { id } = action.payload
 
+      const byIdsCompleted = Object.fromEntries(
+        Object.entries(state.byIds).filter(function (byIdsComplete) {
+          if (byIdsComplete[id].completed !== true) return byIdsComplete
+        })
+      )
+      console.log(byIdsCompleted)
       return {
         ...state,
-
-        allIds: [...state.allIds, id],
-
-        byIds: {
-          ...state.byIds,
-
-          [id]: {
-            content,
-            complete: false,
-          },
-        },
+        byIds: { ...byIdsCompleted },
       }
     }
 

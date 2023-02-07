@@ -22,7 +22,7 @@ export function AddTodo() {
   const handleFilterTodo = (evt) => {
     
     dispatch(filterTodo(evt.target.value))
-    
+    setValue('')
   }
 
   return (
