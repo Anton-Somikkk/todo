@@ -68,16 +68,23 @@ const todoReducer = (state = initialState, action) => {
 
     case FILTER_TODO: {
       // const { id } = action.payload
+      // const index = state.allIds.indexOf(id)
 
-      // const byIdsCompleted = 
-      //   Object.entries(state.byIds).filter((byIdsComplete) =>
-      //     byIdsComplete[id].completed !== true) 
-        
-      
-      console.log(state.byIds[1]?.completed || false)
+      const byIdsCompleted = Object.fromEntries(
+        Object.entries(state.byIds).filter(
+          (byIdsComplete) => byIdsComplete[1].completed
+        )
+      )
+
+      console.log(Object.entries(byIdsCompleted))
+      console.log('2', action.payload)
+      console.log(state.byIds)
+
       return {
-        ...state
-        
+        allIds: [...(Object.entries(byIdsCompleted)[0])],
+        byIds: {
+          ...byIdsCompleted,
+        },
       }
     }
 

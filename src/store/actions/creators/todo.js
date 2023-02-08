@@ -25,7 +25,6 @@ export const filterTodo = (content) => ({
   type: FILTER_TODO,
   payload: {
     /* eslint-disable-next-line no-plusplus */
-    id: ++nextTodoId,
     content,
   },
 })
