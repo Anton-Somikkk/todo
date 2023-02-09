@@ -7,6 +7,7 @@ import styles from './index.module.css'
 
 export function AddTodo() {
   const [value, setValue] = useState('')
+  
 
   const dispatch = useDispatch()
 
@@ -20,9 +21,8 @@ export function AddTodo() {
   }
 
   const handleFilterTodo = (evt) => {
-    
     dispatch(filterTodo(evt.target.value))
-    setValue('')
+    
   }
 
   return (
@@ -36,9 +36,9 @@ export function AddTodo() {
         Add todo
       </button>
       <select onChange={handleFilterTodo}>
-        <option value=''>Выберите</option>
-        <option value='completed'>Выполненные</option>
-        <option value='uncompleted'>Не выполненные</option>
+        <option value="all">Выберите</option>
+        <option value="true">Выполненные</option>
+        <option value="false">Не выполненные</option>
       </select>
     </div>
   )
