@@ -76,12 +76,16 @@ const todoReducer = (state = initialState, action) => {
         )
       )
 
-      console.log(Object.entries(byIdsCompleted))
+      const allIdsCompleted = [Object.entries(byIdsCompleted)].map(
+        (element) => element[0]
+      )
+
+      console.log('1', allIdsCompleted)
       console.log('2', action.payload)
-      console.log(state.byIds)
+      console.log('3', state.byIds)
 
       return {
-        allIds: [...(Object.entries(byIdsCompleted)[0])],
+        allIds: [...state.allIds],
         byIds: {
           ...byIdsCompleted,
         },
