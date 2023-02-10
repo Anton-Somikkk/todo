@@ -71,29 +71,25 @@ const todoReducer = (state = initialState, action) => {
       // const index = state.allIds.indexOf(id)
 
       const byIdsCompleted = Object.fromEntries(
-        Object.entries(state.byIds).filter(
-          (item) => item[1].completed
-        )
+        Object.entries(state.byIds).filter((item) => item[1].completed)
       )
 
       const byIdsUnCompleted = Object.fromEntries(
-        Object.entries(state.byIds).filter(
-          (item) => item[1].completed === 'false'
-        )
+        Object.entries(state.byIds).filter((item) => !item[1].completed)
       )
       let byIdsComplete = {}
+      
 
       if (action.payload.content === 'true') {
         byIdsComplete = { ...byIdsCompleted }
-        return byIdsComplete
+        
       }
-      if (action.payload.content === 'false') {
+      if (action.payload.content === 'false' || !action.payload.content) {
         byIdsComplete = { ...byIdsUnCompleted }
-        return byIdsComplete
+        
       }
       if (action.payload.content === 'all') {
-        byIdsComplete = { ...state.byIds }
-        return byIdsComplete
+        byIdsComplete = { ...byIdsCompleted, ...byIdsUnCompleted }
       }
 
       const allIdsComplete = Object.entries(byIdsComplete).map(
