@@ -14,6 +14,16 @@ const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO: {
       const { id, content } = action.payload
+      const byIds = {
+        ...state.byIds,
+
+        [id]: {
+          content,
+          complete: false,
+        },
+      }
+
+      localStorage.setItem('stateByIds', JSON.stringify(byIds))
 
       return {
         ...state,
@@ -36,6 +46,12 @@ const todoReducer = (state = initialState, action) => {
 
       const targetTodo = state.byIds[id]
 
+      const byIds = {
+        ...state.byIds,
+        [id]: { ...targetTodo, completed: !targetTodo.completed },
+      }
+      localStorage.setItem('stateByIds', JSON.stringify(byIds))
+
       return {
         ...state,
 
@@ -52,6 +68,11 @@ const todoReducer = (state = initialState, action) => {
     case DELETE_TODO: {
       const { id } = action.payload
       const index = state.allIds.indexOf(id)
+      const byIds = {
+        ...Object.fromEntries(Object.entries(state.byIds).slice(0, index)),
+        ...Object.fromEntries(Object.entries(state.byIds).slice(index + 1)),
+      }
+      localStorage.setItem('stateByIds', JSON.stringify(byIds))
 
       return {
         allIds: [
@@ -60,47 +81,40 @@ const todoReducer = (state = initialState, action) => {
         ],
 
         byIds: {
-          ...Object.fromEntries(Object.entries(state.byIds).slice(0, index)),
-          ...Object.fromEntries(Object.entries(state.byIds).slice(index + 1)),
+          ...byIds,
         },
       }
     }
 
     case FILTER_TODO: {
-      // const { id } = action.payload
-      // const index = state.allIds.indexOf(id)
-
+      const byIdsSave = JSON.parse(localStorage.getItem('stateByIds'))
       const byIdsCompleted = Object.fromEntries(
-        Object.entries(state.byIds).filter((item) => item[1].completed)
+        Object.entries(byIdsSave).filter((item) => item[1].completed)
       )
 
       const byIdsUnCompleted = Object.fromEntries(
-        Object.entries(state.byIds).filter((item) => !item[1].completed)
+        Object.entries(byIdsSave).filter((item) => !item[1].completed)
       )
-      let byIdsComplete = {}
-      
 
       if (action.payload.content === 'true') {
-        byIdsComplete = { ...byIdsCompleted }
-        
+        localStorage.setItem('byIdsComplete', JSON.stringify(byIdsCompleted))
       }
       if (action.payload.content === 'false' || !action.payload.content) {
-        byIdsComplete = { ...byIdsUnCompleted }
-        
+        localStorage.setItem('byIdsComplete', JSON.stringify(byIdsUnCompleted))
       }
       if (action.payload.content === 'all') {
-        byIdsComplete = { ...byIdsCompleted, ...byIdsUnCompleted }
+        localStorage.setItem(
+          'byIdsComplete',
+          JSON.stringify({ ...byIdsCompleted, ...byIdsUnCompleted })
+        )
       }
-
+      const byIdsComplete = JSON.parse(localStorage.getItem('byIdsComplete'))
       const allIdsComplete = Object.entries(byIdsComplete).map(
         (element) => element[0]
       )
 
-      console.log('1', allIdsComplete)
-      console.log('2', byIdsComplete)
-      console.log('3', action.payload.content)
-
       return {
+        ...state,
         allIds: [...allIdsComplete],
         byIds: {
           ...byIdsComplete,
