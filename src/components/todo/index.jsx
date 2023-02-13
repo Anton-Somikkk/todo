@@ -19,22 +19,24 @@ export function Todo({ todo }) {
   }
 
   return (
-    <li  className={styles.item} >
+    <li className={styles.item}>
       {todo.completed ? '👌' : '👋'}{' '}
-      <span onClick={toggleTodoItem} role="presentation"
+      <span
+        onClick={toggleTodoItem}
+        role="presentation"
         className={cx({
           [styles.completed]: todo.completed,
         })}
       >
         {todo.content}
       </span>
+      <span> </span>
       <span
         className={styles.deleteItem}
         onClick={deleteTodoItem}
         role="presentation"
       >
-        {' '}
-        ❎
+        &#10006;
       </span>
     </li>
   )
