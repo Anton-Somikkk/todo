@@ -36,7 +36,7 @@ export function AddTodo() {
         Add todo
       </button>
       <select onChange={handleFilterTodo}>
-        <option value="all">Выберите</option>
+        <option value="all">Все тудушки</option>
         <option value="true">Выполненные</option>
         <option value="false">Не выполненные</option>
       </select>
